@@ -102,6 +102,11 @@ public class Matrix {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //If the matrix is elevated to a negative number you must simplify the equation by removing the negative by making the inverse of the matrix
+        if (p < 0){
+            p = p * -1;
+            invert(mat);
+        }
         //We simply copy the array and multiply on the copy n times
         double[][] result = mat;
 
@@ -139,6 +144,13 @@ public class Matrix {
         if (x1 < 0 || y1 < 0 || x2 > mat.length - 1 || y2 > mat[0].length - 1) {
             try {
                 throw new Exception("Invalid sub-matrix: The positions of the sub-matrix have to be in the range of the original matrix");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (x1 > x2 || y1 > y2 ){
+            try {
+                throw new Exception("Flawed logic: x1 and y1 have to be the minor numbers to obtain a logical submatrix");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -376,7 +388,6 @@ public class Matrix {
         negativeZeros(invMat);
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat.length; j++) {
-                assert invMat != null;
                 if (transMat[i][j] != invMat[i][j] ) {
                     result = false;
                     break;
@@ -435,7 +446,7 @@ public class Matrix {
 
         //Checks if the input is an array by comparing all columns
         for (int i = 0; i < mat.length; i++) {
-            if (mat.length <= 0 || mat[0].length <= 0) {
+            if (mat[0].length <= 0) {
                 throw new Exception("Null size: Input has to be a matrix bigger than 0");
             }
 
@@ -482,7 +493,7 @@ public class Matrix {
         //Calculate the determinant
         double det = determinant(mat);
 
-        //Checks if the determinant is either null or infite, in which cases operations are imposible
+        //Checks if the determinant is either null or infinite, in which cases operations are impossible
         if (det == Double.POSITIVE_INFINITY || Double.isNaN(det)) {
             throw new Exception("Inconsistent determinant: The determinant is either non-existent or has a infinite value");
         }
