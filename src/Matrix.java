@@ -148,12 +148,16 @@ public class Matrix {
                 e.printStackTrace();
             }
         }
-        if (x1 > x2 || y1 > y2 ){
-            try {
-                throw new Exception("Flawed logic: x1 and y1 have to be the minor numbers to obtain a logical submatrix");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        int tmpNum = 0;
+        if (x1 > x2){
+            tmpNum = x1;
+            x1 = x2;
+            x2 = tmpNum;
+        }
+        if (y1 > y2){
+            tmpNum = y1;
+            y1 = y2;
+            y2 = tmpNum;
         }
         //First create the array based on the new size
         double[][] result = new double[y2 - y1 + 1][x2 - x1 + 1];
